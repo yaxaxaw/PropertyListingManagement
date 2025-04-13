@@ -4,48 +4,49 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.sql.*;
 
 public class RegistrationController {
+    @FXML private TextField nameField;
+    @FXML private TextField surnameField;
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private PasswordField confirmPasswordField;
     @FXML private Label errorLabel;
 
     @FXML
     private void handleRegistration() {
-        // Получаем значения из полей ввода
-        String username = usernameField.getText();  // Вот объявление username
-        String password = passwordField.getText();  // Вот объявление password
-        String confirmPassword = confirmPasswordField.getText();
+        String name = nameField.getText();
+        String surname = surnameField.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String role = "buyer";
 
-        if (username.isEmpty() || password.isEmpty()) {
-            showError("Username and password cannot be empty");
-            return;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            showError("Passwords do not match");
+        if (name.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            showError("All fields must be filled");
             return;
         }
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(
-                     "INSERT INTO users (username, password) VALUES (?, ?)")) {
+                     "INSERT INTO users (username, password, name, surname, role) VALUES (?, ?, ?, ?, ?) RETURNING id")) {
 
-            // Параметры индексируются с 1
-            stmt.setString(1, username);  // parameterIndex=1
-            stmt.setString(2, password);  // parameterIndex=2
-            stmt.executeUpdate();
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            stmt.setString(3, name);
+            stmt.setString(4, surname);
+            stmt.setString(5, role);
 
-            openMainWindow();
+            ResultSet rs = stmt.executeQuery();
 
-        } catch (SQLException e) {
-            if (e.getSQLState().equals("23505")) {
-                showError("Username already exists");
-            } else {
-                showError("Database error: " + e.getMessage());
+            if (rs.next()) {
+                showError("Registered successfully!");
+                closeWindow();
             }
+        } catch (SQLException e) {
+            showError("Database error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -54,12 +55,8 @@ public class RegistrationController {
         errorLabel.setVisible(true);
     }
 
-    private void openMainWindow() {
-        try {
-            usernameField.getScene().getWindow().hide();
-            new MainWindow().show();
-        } catch (Exception e) {
-            showError("Failed to open application: " + e.getMessage());
-        }
+    private void closeWindow() {
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
     }
 }

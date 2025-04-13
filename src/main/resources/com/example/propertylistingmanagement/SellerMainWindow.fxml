@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.propertylistingmanagement.SellerMainWindowController"
+            prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
+
+    <children>
+        <TabPane layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="780.0">
+            <tabs>
+                <Tab text="Property">
+                    <content>
+                        <AnchorPane prefHeight="500.0" prefWidth="770.0">
+                            <children>
+                                <TableView fx:id="propertyTable" prefHeight="300.0" prefWidth="770.0">
+                                    <columns>
+                                        <TableColumn text="ID" prefWidth="60.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="id"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Type" prefWidth="150.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="type"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Square Feet" prefWidth="100.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="squareFeet"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Price" prefWidth="150.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="price"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Address" prefWidth="310.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="address"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                                <HBox layoutX="10.0" layoutY="310.0" spacing="10">
+                                    <Button text="Add Property" prefWidth="120.0" onAction="#addProperty"/>
+                                    <Button text="Update Property" prefWidth="120.0" onAction="#updateProperty"/>
+                                    <Button text="Delete Property" prefWidth="120.0" onAction="#deleteProperty"/>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <Tab text="Buyers">
+                    <content>
+                        <AnchorPane prefHeight="500.0" prefWidth="770.0">
+                            <children>
+                                <TableView fx:id="buyersTable" prefHeight="500.0" prefWidth="770.0">
+                                    <columns>
+                                        <TableColumn text="ID" prefWidth="60.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="id"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Name" prefWidth="350.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="name"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Surname" prefWidth="350.0">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="surname"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
