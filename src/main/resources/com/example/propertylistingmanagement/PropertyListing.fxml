@@ -11,13 +11,16 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.propertylistingmanagement.PropertyListingController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
             <AnchorPane layoutY="3.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #1A646F;">
                <children>
-                  <Button layoutX="40.0" layoutY="332.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Create new Account" />
+                  <Button layoutX="40.0" layoutY="332.0" mnemonicParsing="false"
+                          onAction="#showRegistrationWindow" prefHeight="40.0" prefWidth="220.0"
+                          style="-fx-background-color: transparent; -fx-border-color: #ffffff; -fx-border-width: 1; -fx-border-radius: 5;"
+                          text="Create new Account" textFill="WHITE" />
                   <ImageView fitHeight="203.0" fitWidth="204.0" layoutX="48.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@LoginIcon.png" />
@@ -37,14 +40,18 @@
             </AnchorPane>
             <AnchorPane layoutX="300.0" layoutY="5.0" prefHeight="400.0" prefWidth="300.0">
                <children>
-                  <Label layoutX="33.0" layoutY="81.0" text="Login Account" textFill="#22a378">
+                  <Label layoutX="33.0" layoutY="81.0" style="-fx-border-color: #1A646F; -fx-border-width: 0 0 0 3; -fx-padding: 0 0 0 5;" text="Login Account">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="50.0" layoutY="169.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" />
-                  <PasswordField layoutX="50.0" layoutY="212.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" />
-                  <Button layoutX="50.0" layoutY="283.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" text="Login" />
+                  <TextField fx:id="usernameField" layoutX="50.0" layoutY="169.0" prefHeight="30.0" prefWidth="220.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #1A646F; -fx-padding: 0 0 0 8;" />
+                  <PasswordField fx:id="passwordField" layoutX="50.0" layoutY="212.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #1A646F; -fx-padding: 0 0 0 8;" />
+                  <Button layoutX="50.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #1A646F; -fx-background-radius: 5;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                   <Hyperlink layoutX="50.0" layoutY="251.0" text="Forgot Password?" />
                </children>
             </AnchorPane>
