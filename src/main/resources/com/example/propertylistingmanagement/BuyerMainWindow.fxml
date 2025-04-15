@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.propertylistingmanagement.BuyerMainWindowController"
-            prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #1A646F;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.propertylistingmanagement.BuyerMainWindowController">
 
     <children>
-        <Label layoutX="50.0" layoutY="20.0" text="Available Properties" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: bold;" text="Available Properties" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
 
         <TableView fx:id="propertyTable" layoutX="50.0" layoutY="60.0" prefHeight="480.0" prefWidth="700.0">
             <columns>
-                <TableColumn text="ID" prefWidth="80.0">
+                <TableColumn prefWidth="80.0" text="ID">
                     <cellValueFactory>
-                        <PropertyValueFactory property="id"/>
+                        <PropertyValueFactory property="id" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Type" prefWidth="120.0">
+                <TableColumn prefWidth="120.0" text="Type">
                     <cellValueFactory>
-                        <PropertyValueFactory property="type"/>
+                        <PropertyValueFactory property="type" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Square Feet" prefWidth="100.0">
+                <TableColumn prefWidth="100.0" text="Square Feet">
                     <cellValueFactory>
-                        <PropertyValueFactory property="squareFeet"/>
+                        <PropertyValueFactory property="squareFeet" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Price" prefWidth="150.0">
+                <TableColumn prefWidth="150.0" text="Price">
                     <cellValueFactory>
-                        <PropertyValueFactory property="price"/>
+                        <PropertyValueFactory property="price" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Address" prefWidth="250.0">
+                <TableColumn prefWidth="250.0" text="Address">
                     <cellValueFactory>
-                        <PropertyValueFactory property="address"/>
+                        <PropertyValueFactory property="address" />
                     </cellValueFactory>
                 </TableColumn>
             </columns>
