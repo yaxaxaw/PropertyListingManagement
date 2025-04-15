@@ -2,43 +2,110 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.propertylistingmanagement.BuyerMainWindowController"
-            prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
-
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.propertylistingmanagement.BuyerMainWindowController">
     <children>
-        <Label layoutX="50.0" layoutY="20.0" text="Available Properties" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
-
-        <TableView fx:id="propertyTable" layoutX="50.0" layoutY="60.0" prefHeight="480.0" prefWidth="700.0">
-            <columns>
-                <TableColumn text="ID" prefWidth="80.0">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="id"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="Type" prefWidth="120.0">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="type"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="Square Feet" prefWidth="100.0">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="squareFeet"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="Price" prefWidth="150.0">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="price"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="Address" prefWidth="250.0">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="address"/>
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
+        <AnchorPane prefHeight="600.0" prefWidth="800.0">
+            <children>
+                <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <top>
+                        <AnchorPane prefHeight="45.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <AnchorPane prefHeight="35.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <Label layoutX="14.0" layoutY="14.0" text="Property Listing Management">
+                                            <font>
+                                                <Font name="Tahoma" size="14.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </top>
+                    <left>
+                        <AnchorPane prefHeight="555.0" prefWidth="221.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <AnchorPane prefHeight="554.4" prefWidth="221.6" style="-fx-background-color: #1A646F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <ImageView fitHeight="75.0" fitWidth="87.0" layoutX="73.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@user.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label layoutX="73.0" layoutY="114.0" text="Welcome," textFill="WHITE">
+                                            <font>
+                                                <Font name="Tahoma" size="17.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="buyerNameLabel" alignment="CENTER" layoutX="13.0" layoutY="136.0" prefHeight="23.0" prefWidth="195.0" text="Buyer Name" textFill="WHITE">
+                                            <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Line endX="75.4" layoutX="114.0" layoutY="170.0" startX="-81.4" stroke="WHITE" />
+                                        <Label alignment="CENTER" layoutX="84.0" layoutY="498.0" prefHeight="22.0" prefWidth="59.0" style="-fx-border-color: #ffffff; -fx-border-radius: 5;" text="Logout" textFill="WHITE" onMouseClicked="#logout">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </left>
+                    <center>
+                        <AnchorPane prefHeight="554.4" prefWidth="578.4" style="-fx-background-color: #1A646F;" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 24; -fx-font-weight: bold;" text="Available Properties" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <TableView fx:id="propertyTable" layoutX="50.0" layoutY="60.0" prefHeight="480.0" prefWidth="480.0">
+                                    <columns>
+                                        <TableColumn prefWidth="80.0" text="ID">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="id" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="80.0" text="Type">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="type" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="80.0" text="Square Feet">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="squareFeet" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="80.0" text="Price">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="price" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="80.0" text="Status">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="status" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="100.0" text="Address">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="address" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </center>
+                </BorderPane>
+            </children>
+        </AnchorPane>
     </children>
-</AnchorPane>
+</StackPane>

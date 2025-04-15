@@ -34,16 +34,17 @@ public class DatabaseConnection {
                     "square_feet INT NOT NULL, " +
                     "price DECIMAL(10,2) NOT NULL, " +
                     "address TEXT NOT NULL, " +
+                    "status VARCHAR(10) NOT NULL CHECK (status IN ('For Sale', 'For Rent')), " +
                     "seller_id INT NOT NULL REFERENCES users(id))");
 
             // Добавляем тестового продавца
             stmt.executeUpdate(
                     "INSERT INTO users (username, password, name, surname, role) " +
                             "SELECT 'admin', 'qwerty12', 'Vito', 'Corleone', 'seller' " +
-                            "WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'seller1')"
+                            "WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin')"
             );
 
-            System.out.println("Database initialized successfully with test seller");
+            System.out.println("Database initialized successfully with test seller and buyer");
         } catch (SQLException e) {
             System.err.println("Error initializing database: " + e.getMessage());
             e.printStackTrace();
