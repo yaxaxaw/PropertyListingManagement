@@ -27,12 +27,11 @@ public class SellerMainWindowController {
     @FXML private Label sellerNameLabel;
 
     private int currentUserId;
-    private File lastPropertyExportFile; // Для запоминания последнего пути экспорта свойств
-    private File lastBuyerExportFile; // Для запоминания последнего пути экспорта покупателей
+    private File lastPropertyExportFile;
+    private File lastBuyerExportFile;
 
     public void setCurrentUserId(int userId) {
         this.currentUserId = userId;
-        System.out.println("Setting currentUserId to: " + userId);
         loadData();
         loadSellerName();
     }
@@ -40,9 +39,6 @@ public class SellerMainWindowController {
     @FXML
     private void initialize() {
         setupTables();
-        System.out.println("Properties Pane: " + (propertiesPane != null ? "Initialized" : "Not Initialized"));
-        System.out.println("Buyers Pane: " + (buyersPane != null ? "Initialized" : "Not Initialized"));
-
         propertyTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 typeField.setText(newSelection.getType());
@@ -68,14 +64,11 @@ public class SellerMainWindowController {
     }
 
     private void loadData() {
-        // Убираем Platform.runLater() и загружаем данные синхронно
         List<Property> properties = loadProperties();
         propertyTable.getItems().setAll(properties);
-        System.out.println("Loaded " + properties.size() + " properties into table");
         propertyTable.refresh();
         List<User> buyers = loadBuyers();
         buyersTable.getItems().setAll(buyers);
-        System.out.println("Loaded " + buyers.size() + " buyers into table");
         buyersTable.refresh();
     }
 
@@ -246,76 +239,80 @@ public class SellerMainWindowController {
 
     @FXML
     private void exportPropertiesToCSV() {
-        File file;
-        if (lastPropertyExportFile == null) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save Properties CSV");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-            file = fileChooser.showSaveDialog(propertyTable.getScene().getWindow());
-            if (file != null) {
-                lastPropertyExportFile = file;
-            }
-        } else {
-            file = lastPropertyExportFile;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Properties CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        fileChooser.setInitialFileName("properties_export.csv");
+
+        if (lastPropertyExportFile != null) {
+            fileChooser.setInitialDirectory(lastPropertyExportFile);
         }
 
-        if (file != null) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                writer.write("ID;Type;Square Feet;Price;Status;Address\n");
-                List<Property> properties = propertyTable.getItems();
-                System.out.println("Exporting " + properties.size() + " properties to CSV");
-                for (Property property : properties) {
-                    System.out.println("Writing property: ID=" + property.getId() + ", Type=" + property.getType());
-                    writer.write(String.format("%d;%s;%d;%.2f;%s;%s\n",
-                            property.getId(),
-                            property.getType(),
-                            property.getSquareFeet(),
-                            property.getPrice(),
-                            property.getStatus(),
-                            property.getAddress()));
-                }
-                writer.flush(); // Убедимся, что данные записаны
-                showAlert("Success", "Properties exported to " + file.getAbsolutePath());
-            } catch (IOException e) {
-                showAlert("Error", "Failed to export properties: " + e.getMessage());
-                e.printStackTrace(); // Выводим стек ошибки в консоль для отладки
+        File file = fileChooser.showSaveDialog(propertyTable.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+
+        if (propertyTable.getItems().isEmpty()) {
+            showAlert("Error", "No properties to export");
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write("ID,Type,Square Feet,Price,Status,Address\n");
+            for (Property property : propertyTable.getItems()) {
+                writer.write(String.format("%d,%s,%d,%.2f,%s,%s\n",
+                        property.getId(),
+                        property.getType(),
+                        property.getSquareFeet(),
+                        property.getPrice(),
+                        property.getStatus(),
+                        property.getAddress()));
             }
+            writer.flush();
+            showAlert("Success", "Properties exported successfully to:\n" + file.getAbsolutePath());
+        } catch (IOException e) {
+            showAlert("Error", "Failed to export properties: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void exportBuyersToCSV() {
-        File file;
-        if (lastBuyerExportFile == null) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save Buyers CSV");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-            file = fileChooser.showSaveDialog(buyersTable.getScene().getWindow());
-            if (file != null) {
-                lastBuyerExportFile = file;
-            }
-        } else {
-            file = lastBuyerExportFile;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Buyers CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        fileChooser.setInitialFileName("buyers_export.csv");
+
+        if (lastBuyerExportFile != null) {
+            fileChooser.setInitialDirectory(lastBuyerExportFile);
         }
 
-        if (file != null) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                writer.write("ID;Name;Surname\n");
-                List<User> buyers = buyersTable.getItems();
-                System.out.println("Exporting " + buyers.size() + " buyers to CSV");
-                for (User buyer : buyers) {
-                    System.out.println("Writing buyer: ID=" + buyer.getId() + ", Name=" + buyer.getName());
-                    writer.write(String.format("%d;%s;%s\n",
-                            buyer.getId(),
-                            buyer.getName(),
-                            buyer.getSurname()));
-                }
-                writer.flush();
-                showAlert("Success", "Buyers exported to " + file.getAbsolutePath());
-            } catch (IOException e) {
-                showAlert("Error", "Failed to export buyers: " + e.getMessage());
-                e.printStackTrace();
+        File file = fileChooser.showSaveDialog(buyersTable.getScene().getWindow());
+        if (file == null) {
+            return;
+        }
+
+        if (buyersTable.getItems().isEmpty()) {
+            showAlert("Error", "No buyers to export");
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write("ID,Name,Surname\n");
+            for (User buyer : buyersTable.getItems()) {
+                writer.write(String.format("%d,%s,%s\n",
+                        buyer.getId(),
+                        buyer.getName(),
+                        buyer.getSurname()));
             }
+            writer.flush();
+            showAlert("Success", "Buyers exported successfully to:\n" + file.getAbsolutePath());
+        } catch (IOException e) {
+            showAlert("Error", "Failed to export buyers: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -332,7 +329,6 @@ public class SellerMainWindowController {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM properties WHERE seller_id = ?")) {
 
-            System.out.println("Current User ID: " + currentUserId);
             stmt.setInt(1, currentUserId);
             ResultSet rs = stmt.executeQuery();
 
@@ -347,10 +343,6 @@ public class SellerMainWindowController {
                         rs.getString("status")
                 );
                 properties.add(property);
-                System.out.println("Loaded Property: " + property.getId() + ", Seller ID: " + property.getSellerId());
-            }
-            if (properties.isEmpty()) {
-                System.out.println("No properties found for seller_id: " + currentUserId);
             }
         } catch (SQLException e) {
             showAlert("Error", "Failed to load properties: " + e.getMessage());

@@ -27,7 +27,6 @@ public class Property {
         this.status = status;
     }
 
-    // Геттеры и сеттеры
     public int getId() { return id; }
     public String getType() { return type; }
     public int getSquareFeet() { return squareFeet; }

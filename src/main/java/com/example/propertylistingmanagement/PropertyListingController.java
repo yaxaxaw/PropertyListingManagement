@@ -83,7 +83,7 @@ public class PropertyListingController {
             showAlert("Database Error", "Failed to login: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            isLoggingIn = false; // Сбрасываем флаг
+            isLoggingIn = false; // Сбрасываем
         }
     }
 

@@ -81,7 +81,6 @@
                     <center>
                         <AnchorPane prefHeight="554.4" prefWidth="578.4" BorderPane.alignment="CENTER">
                             <children>
-                                <!-- Панель Properties -->
                                 <AnchorPane fx:id="propertiesPane" prefHeight="554.4" prefWidth="578.4" style="-fx-background-color: #999999;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <AnchorPane layoutX="12.0" layoutY="12.0" prefHeight="530.0" prefWidth="554.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;">
@@ -193,7 +192,6 @@
                                         </AnchorPane>
                                     </children>
                                 </AnchorPane>
-                                <!-- Панель Buyers -->
                                 <AnchorPane fx:id="buyersPane" prefHeight="554.4" prefWidth="578.4" style="-fx-background-color: #999999;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <AnchorPane layoutX="16.0" layoutY="13.0" prefHeight="527.0" prefWidth="546.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;">
