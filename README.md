@@ -1,17 +1,14 @@
-Property Listing Management System
+# Property Listing Management System
 
-Project Title and Description
-
+## Project Title and Description
 Property Listing Management System is a JavaFX application for managing real estate listings. It allows sellers to create, read, update, and delete (CRUD) property listings and view registered buyers. The system uses a PostgreSQL database for data persistence and supports data export to CSV files.
 
-Student: Azimbai Zhoodarov
+### Student: Azimbai Zhoodarov
 
-Purpose
-
+## Purpose
 The application enables sellers to manage their property listings efficiently and view potential buyers, providing a user-friendly interface for real estate operations.
 
-Objectives
-
+### Objectives
 Implement CRUD operations for property listings.
 Provide a graphical user interface (GUI) using JavaFX.
 Ensure data persistence with a PostgreSQL database.
